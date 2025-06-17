@@ -1,0 +1,7 @@
+# .gitignore
+*.swp
+*.log
+*.gem
+.bundle
+vendor/
+coverage/
