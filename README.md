@@ -35,31 +35,7 @@ stack.empty? # O(1)
 Built in Ruby MRI Arrays which are dynamic arrays under the hood and the `shift` operation for dequeing is O(N). 
 
 
-Few non-standard options available via containers gem, with O(1) enqueue, dequeue, lengt and empty
-
-## Containers/queue backed by singly linkedlist
-
-```ruby
-# Install the gem if needed: gem install containers
-require 'containers/queue'
-
-# Create a new queue (FIFO)
-queue = Containers::Queue.new
-
-# Enqueue elements
-queue.enqueue(10)
-    queue.enqueue(20)
-
-# Dequeue elements in FIFO order
-    puts queue.dequeue  # => 10
-    puts queue.dequeue  # => 20
-
-# Check if the queue is empty
-    puts queue.empty?   # => false
-
-# Check current size
-    puts queue.length   # => 1
-```
+non-standard options available via containers gem, with O(1) Enqueue, dequeue, length and empty. Caveat need to implement peek yourself
 
 ## Containers/dequeue backed by doubly linkedlist
 
@@ -71,6 +47,8 @@ require 'containers/deque'
 deque = Containers::Deque.new
 
 # Push elements to both ends
+# recommend use push_back -> push
+# recommend use pop_front -> pop
 deque.push_front(1)   # front → 1
 deque.push_back(2)    # front → 1, back → 2
 deque.push_back(3)    # front → 1, back → 3
@@ -81,12 +59,15 @@ puts deque.pop_back   # => 3
 
 # Current front element
 deque.push_front(0)
-    deque.push_back(9)
+deque.push_back(9)
 
 # No built-in peek, but you can dequeue and reinsert if needed
+def qpeek()
+    raise IndexError, "peek_front from empty deque" if deque.empty?
     front = deque.pop_front
-    puts "Front element: #{front}"  # => 0
     deque.push_front(front)
+    front
+end
 
 # Check size and emptiness
     puts "Size: #{deque.length}"   # => 2
