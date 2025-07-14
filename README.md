@@ -37,6 +37,10 @@ Built in Ruby MRI Arrays which are dynamic arrays under the hood and the `shift`
 
 non-standard options available via containers gem, with O(1) Enqueue, dequeue, length and empty. Caveat need to implement peek yourself
 
+Downsides of Containers::Deque compared to python
+1. Pure ruby implementation vs C implementation and better memory management in python
+2. Need to add peek() functionality yourself
+3. Need to add enumerator yourself for iteration. 
 ## Containers/dequeue backed by doubly linkedlist
 
 ```ruby
@@ -61,6 +65,11 @@ puts deque.pop_back   # => 3
 deque.push_front(0)
 deque.push_back(9)
 
+
+# Check size and emptiness
+    puts "Size: #{deque.length}"   # => 2
+    puts "Empty? #{deque.empty?}"  # => false
+
 # No built-in peek, but you can dequeue and reinsert if needed
 def qpeek()
     raise IndexError, "peek_front from empty deque" if deque.empty?
@@ -69,7 +78,10 @@ def qpeek()
     front
 end
 
-# Check size and emptiness
-    puts "Size: #{deque.length}"   # => 2
-    puts "Empty? #{deque.empty?}"  # => false
+# printing is not supported so can add this to_s method
+class Containers::Deque
+  def to_s
+      "[" + self.to_a.map { |e| e.inspect }.join(', ') + "]"
+  end
+end
 ```
