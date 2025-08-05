@@ -44,8 +44,8 @@ Downsides of Containers::Deque compared to python
 ## Containers/dequeue backed by doubly linkedlist
 
 ```ruby
-# Install the gem if needed: gem install containers
-require 'containers/deque'
+# Install the gem if needed: gem install algorithms 
+require 'algorithms'
 
 # Create a new deque (double-ended queue)
 deque = Containers::Deque.new
